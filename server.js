@@ -1,9 +1,11 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var middleWare = require('./_middleware/hash');
+var cors = require('cors')
+
 
 var app = new express();
-
+app.use(cors())
 app.use(bodyParser.json());
 
 app.get('/home', function(req, res){
@@ -30,19 +32,39 @@ app.get('/boi', function(req, res){
 app.get('/yum', function(req, res){
     res.send('bootylicious');
 })
-app.get('/pikachu', function(req, res){
-    res.send('pika');
+app.post('/pikachu', function(req, res){
+    res.send([{
+        title: 'my first journal',
+        content: 'my first journal content',
+        now: new Date(),
+        
+      },
+      {
+        title: 'my second journal',
+        content: 'my second journal content',
+        now: new Date(),
+      },
+      {
+        title: 'my third journal',
+        content: 'my third journal content',
+        now: new Date(),
+      }]);
 })
-
 
 app.post('/test', middleWare.change, function(req, res){
     var data = req.body;
 
-    data.email = 'kyle@urabntxt.com';
+    data.email = 'pikachu45@gmail.com';
 
     res.send(data);
 })
+// app.post('/charmander', middleWare.squirtle, function(req, res){
+//     var data = req.body;
 
+//     data.email = 'pikachu45@gmail.com';
+
+//     res.send(data);
+// })
 
 var port = 3000;
 app.listen(port, function() {
